@@ -7,11 +7,11 @@ def hello_world() -> str:
     ----
         None
 
-    Returns:
+    Returns
     -------
         A string containing 'Hello, World!'
 
-    Raises:
+    Raises
     ------
         None
 
