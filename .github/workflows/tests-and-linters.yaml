@@ -1,0 +1,40 @@
+name: Run tests and linters
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - "**"
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Bootstrap poetry
+        run: pipx install poetry
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "poetry"
+
+      - name: Configure poetry
+        run: |
+          poetry config virtualenvs.in-project true
+          poetry config virtualenvs.options.no-pip true
+          poetry config virtualenvs.options.no-setuptools true
+
+      - name: Install dependencies
+        run: poetry install
+
+      - name: Run pytest
+        run: poetry run pytest -v --cov sample_package
+
+      - name: Run ruff
+        run: poetry run ruff check --output-format github
