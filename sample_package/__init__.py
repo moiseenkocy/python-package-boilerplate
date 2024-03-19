@@ -3,7 +3,7 @@
 def hello_world() -> str:
     """Return "Hello, World!".
 
-    Args:
+    Args
     ----
         None
 
